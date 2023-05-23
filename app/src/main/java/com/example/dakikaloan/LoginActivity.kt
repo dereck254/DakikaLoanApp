@@ -18,11 +18,12 @@ class LoginActivity : AppCompatActivity() {
 
     lateinit var buttonLogin: Button
     lateinit var textViewRegister: TextView
+    lateinit var textViewForgotPassword: TextView
     lateinit var editTextPhoneNumber: EditText
     lateinit var editTextPassword: EditText
     lateinit var textViewPhoneNumberError: TextView
     lateinit var textViewPasswordError: TextView
-    lateinit var togglebutton: ToggleButton
+    lateinit var toggleButton: ToggleButton
 
     lateinit var registeredPhoneNumber: String
     lateinit var registeredPassword: String
@@ -33,25 +34,25 @@ class LoginActivity : AppCompatActivity() {
 
         buttonLogin = findViewById(R.id.buttonLogin)
         textViewRegister = findViewById(R.id.textViewRegister)
+        textViewForgotPassword = findViewById(R.id.textViewForgotPassword)
         editTextPhoneNumber = findViewById(R.id.editTextPhoneNumber)
         editTextPassword = findViewById(R.id.editTextPassword)
-        togglebutton= findViewById(R.id.showPasswordToggleButton)
+        toggleButton = findViewById(R.id.showPasswordToggleButton)
         textViewPhoneNumberError = findViewById(R.id.textViewPhoneNumberError)
         textViewPasswordError = findViewById(R.id.textViewPasswordError)
 
-        textViewRegister.setOnClickListener{
+        textViewRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
         }
 
-        togglebutton.setOnCheckedChangeListener { buttonView, isChecked ->
+        toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
             if (isChecked) {
                 editTextPassword.transformationMethod = null
             } else {
                 editTextPassword.transformationMethod = PasswordTransformationMethod.getInstance()
             }
         }
-
 
         // Get the registered phone number and password from SharedPreferences or a database
         // Here, we'll use SharedPreferences for simplicity
@@ -82,15 +83,17 @@ class LoginActivity : AppCompatActivity() {
                 if (password != registeredPassword) {
                     textViewPasswordError.visibility = View.VISIBLE
                     textViewPasswordError.text = "Invalid password"
+                    showForgotPasswordOption()
                 } else {
                     textViewPasswordError.visibility = View.GONE
+                    hideForgotPasswordOption()
                 }
             }
         }
 
-        textViewRegister.setOnClickListener {
-            // Open the register activity
-            val intent = Intent(this@LoginActivity, RegisterActivity::class.java)
+        textViewForgotPassword.setOnClickListener {
+            // Handle the "Forgot Password" option click
+            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
             startActivity(intent)
         }
     }
@@ -107,5 +110,12 @@ class LoginActivity : AppCompatActivity() {
             show()
         }
     }
-}
 
+    private fun showForgotPasswordOption() {
+        textViewForgotPassword.visibility = View.VISIBLE
+    }
+
+    private fun hideForgotPasswordOption() {
+        textViewForgotPassword.visibility = View.GONE
+    }
+}

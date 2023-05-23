@@ -68,6 +68,18 @@ class RegisterActivity : AppCompatActivity() {
                 Toast.makeText(this, "Password mismatch", Toast.LENGTH_SHORT).show()
                 textViewErrorMessage.visibility = View.VISIBLE
                 textViewErrorMessage.text = "Password mismatch"
+            } else if (!isPasswordValid(password)) {
+                Toast.makeText(
+                    this,
+                    "Password must have at least 6 characters, one uppercase letter, one lowercase letter, one digit, and one special character",
+                    Toast.LENGTH_SHORT
+                ).show()
+                textViewErrorMessage.visibility = View.VISIBLE
+                textViewErrorMessage.text = "Invalid password"
+            } else if (!isPhoneNumberValid(phoneNumber)) {
+                Toast.makeText(this, "Invalid phone number", Toast.LENGTH_SHORT).show()
+                textViewErrorMessage.visibility = View.VISIBLE
+                textViewErrorMessage.text = "Invalid phone number"
             } else {
                 // Check if the phone number or ID number is already registered
                 if (isPhoneNumberRegistered(phoneNumber)) {
@@ -98,8 +110,19 @@ class RegisterActivity : AppCompatActivity() {
         }
     }
 
-    private fun isPhoneNumberRegistered(phoneNumber: String): Boolean {
-        // Retrieve the registered phone numbers from SharedPreferences or a database
+    private fun isPasswordValid(password: String): Boolean {
+        val passwordRegex =
+            "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{6,}$".toRegex()
+        return password.matches(passwordRegex)
+    }
+    Number: String): Boolean {
+        // Retrieve the registered phone number
+    private fun isPhoneNumberValid(phoneNumber: String): Boolean {
+        val phoneNumberRegex = "^0\\d{9}$".toRegex()
+        return phoneNumber.matches(phoneNumberRegex)
+    }
+
+    private fun isPhoneNumberRegistered(phones from SharedPreferences or a database
         // Here, we'll use SharedPreferences for simplicity
         val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
         val registeredPhoneNumber = sharedPreferences.getString("phoneNumber", null)
@@ -116,5 +139,6 @@ class RegisterActivity : AppCompatActivity() {
         return registeredIDNumber == idNumber
     }
 }
+
 
 

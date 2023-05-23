@@ -8,7 +8,7 @@
     tools:context=".LoginActivity">
 
     <EditText
-        android:inputType="number"
+        android:inputType="phone"
         android:id="@+id/editTextPhoneNumber"
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -84,12 +84,24 @@
         android:layout_marginEnd="32dp" />
 
     <TextView
+        android:id="@+id/textViewForgotPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Forgot Password? Reset it Here."
+        android:textColor="#4C09C5"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/buttonLogin" />
+
+    <TextView
         android:textStyle="bold"
         android:id="@+id/textViewRegister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Not registered? Register here."
-        app:layout_constraintTop_toBottomOf="@+id/buttonLogin"
+        app:layout_constraintTop_toBottomOf="@+id/textViewForgotPassword"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="16dp" />
