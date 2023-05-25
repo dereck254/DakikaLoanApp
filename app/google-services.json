@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "710589655187",
+    "project_id": "dakika-loan",
+    "storage_bucket": "dakika-loan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710589655187:android:6c131fac492ce85f6c0566",
+        "android_client_info": {
+          "package_name": "com.example.dakikaloan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710589655187-et5oj0489ni1h9tj3au3q3s8mt9rnj4s.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZ59vUyAu9_qHeeYXdZhnqOcD1D6T-sJg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710589655187-et5oj0489ni1h9tj3au3q3s8mt9rnj4s.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -31,7 +31,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="250dp" />
+        android:layout_marginTop="230dp" />
+
 
     <EditText
         android:inputType="number"
@@ -46,18 +47,44 @@
         android:layout_marginEnd="16dp"
         android:layout_marginTop="5dp" />
 
+    <TextView
+        android:id="@+id/textViewPhoneNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
+
     <EditText
         android:id="@+id/editTextIDNumber"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="ID Number"
         android:inputType="number"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPhoneNumber"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPhoneNumberError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/textViewIDNumberError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextIDNumber"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/editTextPassword"
@@ -65,12 +92,25 @@
         android:layout_height="50dp"
         android:hint="Password"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextIDNumber"
+        app:layout_constraintTop_toBottomOf="@+id/textViewIDNumberError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/textViewPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <EditText
         android:id="@+id/ConfirmPassword"
@@ -78,12 +118,25 @@
         android:layout_height="50dp"
         android:hint="Confirm Password"
         android:inputType="textPassword"
-        app:layout_constraintTop_toBottomOf="@+id/editTextPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textViewPasswordError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="5dp" />
+
+    <TextView
+        android:id="@+id/textViewConfirmPasswordError"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FF0000"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp" />
 
     <ToggleButton
         android:id="@+id/showPasswordToggleButton"
@@ -91,13 +144,12 @@
         android:layout_height="wrap_content"
         android:textOff="Show Password"
         android:textOn="Hide Password"
-        app:layout_constraintTop_toBottomOf="@+id/ConfirmPassword"
+        app:layout_constraintTop_toBottomOf="@+id/textViewConfirmPasswordError"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginTop="5dp"/>
-
 
     <Button
         android:background="@color/black"
@@ -137,7 +189,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="5dp" />
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

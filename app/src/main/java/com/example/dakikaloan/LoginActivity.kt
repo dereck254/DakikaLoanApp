@@ -1,18 +1,19 @@
 package com.example.dakikaloan
 
-
-import android.content.Intent
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.text.method.PasswordTransformationMethod
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
-import android.widget.ToggleButton
-import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
-import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import android.view.Gravity
+import android.widget.ToggleButton
+import android.view.View
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
 
 class LoginActivity : AppCompatActivity() {
 
@@ -24,6 +25,8 @@ class LoginActivity : AppCompatActivity() {
     lateinit var textViewPhoneNumberError: TextView
     lateinit var textViewPasswordError: TextView
     lateinit var toggleButton: ToggleButton
+    lateinit var auth: FirebaseAuth
+    lateinit var firestore: FirebaseFirestore
 
     lateinit var registeredPhoneNumber: String
     lateinit var registeredPassword: String
@@ -41,9 +44,13 @@ class LoginActivity : AppCompatActivity() {
         textViewPhoneNumberError = findViewById(R.id.textViewPhoneNumberError)
         textViewPasswordError = findViewById(R.id.textViewPasswordError)
 
+        auth = FirebaseAuth.getInstance()
+        firestore = FirebaseFirestore.getInstance()
+
         textViewRegister.setOnClickListener {
             val intent = Intent(this, RegisterActivity::class.java)
             startActivity(intent)
+            finish()
         }
 
         toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
@@ -54,24 +61,29 @@ class LoginActivity : AppCompatActivity() {
             }
         }
 
-        // Get the registered phone number and password from SharedPreferences or a database
-        // Here, we'll use SharedPreferences for simplicity
-        val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-        registeredPhoneNumber = sharedPreferences.getString("phoneNumber", "") ?: ""
-        registeredPassword = sharedPreferences.getString("password", "") ?: ""
-
         buttonLogin.setOnClickListener {
             val phoneNumber = editTextPhoneNumber.text.toString()
             val password = editTextPassword.text.toString()
 
             // Perform login validation using phone number and password
             if (isValidLogin(phoneNumber, password)) {
-                // Successful login, navigate to the next activity
-                // Replace NextActivity::class.java with your desired activity
-                val intent = Intent(this@LoginActivity, HomeActivity::class.java)
-                startActivity(intent)
-                showToast("Login successful")
-                finish() // Optional: Finish current activity to prevent going back to the login screen
+                auth.signInWithEmailAndPassword(phoneNumber, password)
+                    .addOnCompleteListener(this) { task ->
+                        if (task.isSuccessful) {
+                            val sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+                            val editor = sharedPreferences.edit()
+                            editor.putBoolean("isLoggedIn", true)
+                            editor.apply()
+                            // Successful login, navigate to the next activity
+                            // Replace HomeActivity::class.java with your desired activity
+                            val intent = Intent(this, HomeActivity::class.java)
+                            startActivity(intent)
+                            showToast("Login successful")
+                            finish() // Optional: Finish current activity to prevent going back to the login screen
+                        } else {
+                            showToast("Invalid login credentials")
+                        }
+                    }
             } else {
                 // Invalid login credentials, display error messages
                 if (phoneNumber != registeredPhoneNumber) {
@@ -93,8 +105,33 @@ class LoginActivity : AppCompatActivity() {
 
         textViewForgotPassword.setOnClickListener {
             // Handle the "Forgot Password" option click
-            val intent = Intent(this@LoginActivity, ForgotPasswordActivity::class.java)
+            val intent = Intent(this, ForgotPasswordActivity::class.java)
             startActivity(intent)
+            finish()
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        fetchRegisteredUserData()
+    }
+
+    private fun fetchRegisteredUserData() {
+        val userCollection = firestore.collection("users")
+        val currentUser = auth.currentUser
+
+        currentUser?.uid?.let { userId ->
+            userCollection.document(userId)
+                .get()
+                .addOnSuccessListener { documentSnapshot ->
+                    if (documentSnapshot.exists()) {
+                        registeredPhoneNumber = documentSnapshot.getString("phoneNumber") ?: ""
+                        registeredPassword = documentSnapshot.getString("password") ?: ""
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    showToast("Failed to fetch user data from Firestore")
+                }
         }
     }
 

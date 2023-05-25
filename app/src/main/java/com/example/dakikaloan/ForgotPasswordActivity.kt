@@ -9,6 +9,7 @@ import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import android.widget.Toast
+import android.widget.ToggleButton
 
 class ForgotPasswordActivity : AppCompatActivity() {
 
@@ -22,6 +23,7 @@ class ForgotPasswordActivity : AppCompatActivity() {
     lateinit var textViewIDNumberError: TextView
     lateinit var textViewNewPasswordError: TextView
     lateinit var textViewConfirmNewPasswordError: TextView
+    lateinit var toggleButton: ToggleButton
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,6 +39,17 @@ class ForgotPasswordActivity : AppCompatActivity() {
         textViewIDNumberError = findViewById(R.id.textViewIDNumberError)
         textViewNewPasswordError = findViewById(R.id.textViewNewPasswordError)
         textViewConfirmNewPasswordError = findViewById(R.id.textViewConfirmNewPasswordError)
+        toggleButton = findViewById(R.id.showNewPasswordToggleButton)
+
+        toggleButton.setOnCheckedChangeListener { buttonView, isChecked ->
+            if (isChecked) {
+                editTextNewPassword.transformationMethod = null
+                editTextConfirmNewPassword.transformationMethod = null
+            } else {
+                editTextNewPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+                editTextConfirmNewPassword.transformationMethod = PasswordTransformationMethod.getInstance()
+            }
+        }
 
         buttonResetPassword.setOnClickListener {
             val phoneNumber = editTextPhoneNumber.text.toString()
@@ -60,14 +73,14 @@ class ForgotPasswordActivity : AppCompatActivity() {
             // Validate ID number
             if (!isValidIDNumber(idNumber)) {
                 textViewIDNumberError.visibility = View.VISIBLE
-                textViewIDNumberError.text = "Invalid ID number"
+                textViewIDNumberError.text = "ID number not registered."
                 hasError = true
             }
 
             // Validate new password
             if (!isValidPassword(newPassword)) {
                 textViewNewPasswordError.visibility = View.VISIBLE
-                textViewNewPasswordError.text = "Invalid password"
+                textViewNewPasswordError.text = "Password should have Uppercase, lowercase, special character and a numeric"
                 hasError = true
             }
 

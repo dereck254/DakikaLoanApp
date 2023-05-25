@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <item
+        android:id="@+id/menu_title"
+        android:title="Menu"
+        android:titleCondensed="Menu"
+        android:enabled="false"
+        android:textStyle="bold"
+        android:textSize="40sp"
+        android:paddingTop="20dp"
+        android:paddingBottom="10dp"
+        android:background="@color/black"
+        android:textColor="@color/white" />
+<!-- First section: Apply Now, My Loan, My Profile, Loan History -->
+<group android:checkableBehavior="single"
+     >
+    <item
+        android:id="@+id/nav_item1"
+        android:title="Apply Now" />
+    <item
+        android:id="@+id/nav_item2"
+        android:title="My Loan" />
+    <item
+        android:id="@+id/nav_item3"
+        android:title="My Profile" />
+    <item
+        android:id="@+id/nav_item4"
+        android:title="Loan History" />
+</group>
+
+<!-- Divider line -->
+<item
+    android:id="@+id/menu_divider"
+    android:title=""
+    android:enabled="false"
+    android:icon="@drawable/menu_divider"
+    app:showAsAction="always" />
+
+<!-- Second section: FAQ, About, Logout -->
+<group android:checkableBehavior="single">
+    <item
+        android:id="@+id/nav_item5"
+        android:title="FAQ" />
+    <item
+        android:id="@+id/nav_item6"
+        android:title="About" />
+    <item
+        android:id="@+id/nav_item7"
+        android:title="Logout" />
+</group>
+
+</menu>
+
